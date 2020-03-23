@@ -13,7 +13,6 @@ int charCount(char* filePath){//返回文件字符数
 	if(fp == NULL)
 	{
 		printf("cannot find file!\n");
-		return -1;
 	}else{
 		do{
 			ch = fgetc(fp);
@@ -30,13 +29,15 @@ int charCount(char* filePath){//返回文件字符数
 int wordCount(char* filePath) {//返回文件的词的数目 
 	FILE* file;
 	file =  fopen(filePath,"r");
-	int n = 0 ;
+	int n = 1 ;
 	printf("%s",file);
 	char ch;
 	if(file == NULL)
 	{
 		printf("cannot find file!\n");
-		return -1 ;
+		return 0 ;
+	}else if((ch=fgetc(file))==EOF){
+		n=0;
 	}else{
 		do{
 			ch = fgetc(file);
@@ -46,18 +47,20 @@ int wordCount(char* filePath) {//返回文件的词的数目
 		}while(ch != EOF);
 		fclose(file);
 	}
-	return ++n;
+	return n;
 }
 
 int lineCount(char* filePath) {//返回文件的行数 
 	FILE* file ;
 	file = fopen(filePath,"r");
-	int n = 0;
+	int n = 1;
 	char ch;
 	if(file == NULL)
 	{
 		printf("cannot find file!\n");
 		return -1;
+	}else if( (ch=fgetc(file)) == EOF){
+		n=0;
 	}else{
 		do{
 			ch = fgetc(file);
@@ -67,7 +70,7 @@ int lineCount(char* filePath) {//返回文件的行数
 		}while(ch != EOF);
 		fclose(file);
 	}
-	return ++n;
+	return n;
 }
 
 int operateFILE(char* filePath, char cmd) {
